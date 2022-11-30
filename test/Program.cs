@@ -2,12 +2,17 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using test.Dal;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using test.Dal.Interfaces;
+using test.Dal.Repositories;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = "Data Source=C:\testERC\test.Dal\testERC.db";
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
+builder.Services.AddScoped<IOrderRep, OrderRep>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

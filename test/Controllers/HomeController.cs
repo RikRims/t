@@ -1,20 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using test.Models;
+using test.Dal.Interfaces;
 
 namespace test.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IOrderRep _orderRep;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IOrderRep orderRep)
         {
             _logger = logger;
+            _orderRep = orderRep;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var responce = await _orderRep.Select();
+
             return View();
         }
 
