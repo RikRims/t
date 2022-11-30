@@ -7,7 +7,7 @@ namespace test.Dal
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
+            Database.EnsureCreated();
         }
 
         public DbSet<Account> Accounts { get; set; }

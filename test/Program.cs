@@ -9,9 +9,8 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=test.db"));
 builder.Services.AddScoped<IOrderRep, OrderRep>();
 
 // Add services to the container.
